@@ -4,7 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Base64;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ import com.springBootWebBoilerplate.server.services.UserService;
 
 @Controller
 public class AuthController {
-	final static Logger LOGGER = Logger.getLogger(AuthController.class);
+	final static Logger LOGGER = LogManager.getLogger(AuthController.class);
 	@Autowired
 	UserService userService;
 	@Autowired

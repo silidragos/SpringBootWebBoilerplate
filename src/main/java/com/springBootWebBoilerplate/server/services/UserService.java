@@ -5,7 +5,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import com.springBootWebBoilerplate.server.entities.enums.UserStatusEnum;
 
 @Service
 public class UserService {
-	final static Logger LOGGER = Logger.getLogger(UserService.class);
+	final static Logger LOGGER = LogManager.getLogger(UserService.class);
 	@Autowired
 	UserDAO userDao;
 	@Autowired

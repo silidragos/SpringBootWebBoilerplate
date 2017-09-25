@@ -3,10 +3,12 @@ package com.springBootWebBoilerplate.server.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.springBootWebBoilerplate.server.security.JwtAuthFilter;
@@ -37,16 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         
-        http.cors()
-		.and()
-        .authorizeRequests()
-//	    		.antMatchers(HttpMethod.OPTIONS)
-//	    		.permitAll()
-            	//.antMatchers("/server/home").hasAuthority("USER")
-                //.antMatchers("/server/**").permitAll()
-                .antMatchers("/server/home").hasAuthority("ROLE_USER")
-        		.antMatchers("/server/user/login").permitAll()
-                .antMatchers("/server/user/register").permitAll()
+        http
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and().cors()
+		.and().authorizeRequests()
+	    		.antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/user/register", "/user/login").permitAll()
+                .antMatchers("/test").permitAll()
+                .antMatchers("/home").hasAuthority("ROLE_USER")//ROLE_ADMIN
         		.anyRequest().authenticated()
                 .and()
         		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
