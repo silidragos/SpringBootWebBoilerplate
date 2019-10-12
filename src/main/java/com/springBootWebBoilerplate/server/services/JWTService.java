@@ -1,6 +1,5 @@
 package com.springBootWebBoilerplate.server.services;
 
-import java.security.SignatureException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
